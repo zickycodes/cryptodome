@@ -20,7 +20,7 @@ const Hompage = () => {
 
   console.log(coins);
 
-  const firstTenCryotos = coins ? coins.slice(0, 10) : "loading...";
+  const firstTenCryotos = coins ? coins.slice(0, 10) : [];
   console.log(firstTenCryotos);
 
   const currencies = firstTenCryotos.map((coin) => {
