@@ -18,24 +18,28 @@ const Hompage = () => {
     return state.crypto;
   });
 
-  console.log(coins);
+  // console.log(coins);
 
-  const firstTenCryotos = coins ? coins.slice(0, 10) : [];
-  console.log(firstTenCryotos);
+  // // const firstTenCryotos = coins ? coins.slice(0, 10) : "loading...";
+  //  //incorrect, strings not supported by .map()
 
-  const currencies = firstTenCryotos.map((coin) => {
-    return (
-      <Link key={coin.uuid} as={ReachLink} to={`cryptocurrencies/${coin.uuid}`}>
-        <Box boxShadow="dark-lg" rounded="md" p="4" bg="white">
-          <Image borderRadius="md" src={coin.iconUrl} width="5%" />
-          <Text>Coin Name:{coin.name}</Text>
-          <Text>Coin Rank{coin.rank}</Text>
-          <Text>Coin Price:{millify(coin.price)}</Text>
-          <Text> 24hour Change:{coin.change}%</Text>
-        </Box>
-      </Link>
-    );
-  });
+  // const firstTenCryotos = coins ? coins.slice(0, 10) : [];
+  // //maintaining array data type
+  // console.log(firstTenCryotos);
+
+  // const currencies = firstTenCryotos.map((coin) => {
+  //   return (
+  //     <Link key={coin.uuid} as={ReachLink} to={`cryptocurrencies/${coin.uuid}`}>
+  //       <Box boxShadow="dark-lg" rounded="md" p="4" bg="white">
+  //         <Image borderRadius="md" src={coin.iconUrl} width="5%" />
+  //         <Text>Coin Name:{coin.name}</Text>
+  //         <Text>Coin Rank{coin.rank}</Text>
+  //         <Text>Coin Price:{millify(coin.price)}</Text>
+  //         <Text> 24hour Change:{coin.change}%</Text>
+  //       </Box>
+  //     </Link>
+  //   );
+  // });
 
   return (
     <Box display="flex" flexDirection="column">
@@ -73,7 +77,27 @@ const Hompage = () => {
         <Text fontSize="lg">Show More...</Text>
       </Box>
 
-      <SimpleGrid columns={[1, 2, 4]}>{!loading && currencies}</SimpleGrid>
+      <SimpleGrid columns={[1, 2, 4]}>
+        {!loading &&
+          coins &&
+          coins.slice(0, 10).map((coin) => {
+            return (
+              <Link
+                key={coin.uuid}
+                as={ReachLink}
+                to={`cryptocurrencies/${coin.uuid}`}
+              >
+                <Box boxShadow="dark-lg" rounded="md" p="4" bg="white">
+                  <Image borderRadius="md" src={coin.iconUrl} width="5%" />
+                  <Text>Coin Name:{coin.name}</Text>
+                  <Text>Coin Rank{coin.rank}</Text>
+                  <Text>Coin Price:{millify(coin.price)}</Text>
+                  <Text> 24hour Change:{coin.change}%</Text>
+                </Box>
+              </Link>
+            );
+          })}
+      </SimpleGrid>
     </Box>
   );
 };
