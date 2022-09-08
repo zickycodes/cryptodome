@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const fetchCrypto = createAsyncThunk("cryptos/fetchcryptos", async () => {
+const fetchCrypto = createAsyncThunk("cryptos/fetchcryptos", async (count) => {
   const options = {
     method: "GET",
     url: "https://coinranking1.p.rapidapi.com/coins",
@@ -10,16 +10,16 @@ const fetchCrypto = createAsyncThunk("cryptos/fetchcryptos", async () => {
       "tiers[0]": "1",
       orderBy: "marketCap",
       orderDirection: "desc",
-      limit: "50",
       offset: "0",
+      limit: `${count}`,
     },
     headers: {
       "X-RapidAPI-Key": "65ce34489dmsh08e013df88b1120p17f019jsn7c8e9363e075",
       "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
     },
   };
-  const response = await (await axios.request(options)).data;
-  return response.data;
+  const response = await axios.request(options);
+  return response.data.data;
 });
 
 const cryptoSlice = createSlice({
