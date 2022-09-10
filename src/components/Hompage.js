@@ -36,7 +36,7 @@ const Hompage = () => {
 
   useEffect(() => {
     dispatch(fetchCrypto(count));
-  });
+  }, [count, dispatch]);
 
   return (
     <Box m="2">

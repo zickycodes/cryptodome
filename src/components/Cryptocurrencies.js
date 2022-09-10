@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { SimpleGrid, Text, Link, Box, Image } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { Link as ReachLink } from "react-router-dom";

@@ -16,7 +16,7 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchCryptoNews("Cryptocurrency"));
     console.log("ff");
-  });
+  }, [dispatch]);
 
   return (
     <Box>
