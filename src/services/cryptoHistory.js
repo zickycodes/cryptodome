@@ -8,7 +8,7 @@ const fetchCryptoDetail = createAsyncThunk(
       url: "https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/history",
       params: {
         referenceCurrencyUuid: `${uuid}`,
-        // timePeriod: `${time}`,
+        timePeriod: `${time}`,
       },
       headers: {
         "X-RapidAPI-Key": "65ce34489dmsh08e013df88b1120p17f019jsn7c8e9363e075",

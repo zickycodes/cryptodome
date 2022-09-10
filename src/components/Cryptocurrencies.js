@@ -1,19 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { SimpleGrid, Text, Link, Box, Image } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { Link as ReachLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchCrypto } from "../services/cryptoApi";
+
 import millify from "millify";
 
-export const Cryptocurrencies = ({ simplified }) => {
-  const count = simplified ? 10 : 50;
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchCrypto(count));
-  });
-
+export const Cryptocurrencies = ({ simplified, setCount }) => {
   const { coins, loading } = useSelector((state) => {
     return state.crypto;
   });
@@ -62,6 +54,7 @@ export const Cryptocurrencies = ({ simplified }) => {
         _hover={{ textDecoration: "none", bg: "darkgrey" }}
       >
         <Box boxShadow="md" rounded="md" p="4" bg="white">
+          const count = simplified ? setCount(10) : setCount(50);{" "}
           <Image
             borderRadius="md"
             src={coin.iconUrl}
