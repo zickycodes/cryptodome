@@ -14,13 +14,16 @@ const fetchCrypto = createAsyncThunk("cryptos/fetchcryptos", async (count) => {
       limit: `${count}`,
     },
     headers: {
-      "X-RapidAPI-Key": "65ce34489dmsh08e013df88b1120p17f019jsn7c8e9363e075",
+      // "X-RapidAPI-Key": "65ce34489dmsh08e013df88b1120p17f019jsn7c8e9363e075",
+      "X-RapidAPI-Key": process.env.REACT_APP_CRYPTODETAIL_KEY,
       "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
     },
   };
   const response = await axios.request(options);
   return response.data.data;
 });
+
+console.log(process.env);
 
 const cryptoSlice = createSlice({
   name: "cryptos",

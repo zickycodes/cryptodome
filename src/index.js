@@ -2,10 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import App from "./App";
 import store from "./app/store";
 import { Provider } from "react-redux";
+import theme from "./chakraconfig/theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,6 +14,7 @@ root.render(
     <ChakraProvider>
       <BrowserRouter>
         <Provider store={store}>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <App />
         </Provider>
       </BrowserRouter>

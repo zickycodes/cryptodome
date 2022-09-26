@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Box,
   SimpleGrid,
@@ -18,13 +18,9 @@ import { SiMarketo } from "react-icons/si";
 import { GiApolloCapsule } from "react-icons/gi";
 import { useSelector } from "react-redux";
 import Cryptocurrencies from "./Cryptocurrencies";
-import { fetchCrypto } from "../services/cryptoApi";
-import { useDispatch } from "react-redux";
 import moment from "moment";
 
 const Hompage = () => {
-  const [count, setCount] = useState(10);
-
   const { stats, loading } = useSelector((state) => {
     return state.crypto;
   });
@@ -32,11 +28,6 @@ const Hompage = () => {
   const { newsItems, loadingNews } = useSelector((state) => {
     return state.news;
   });
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchCrypto(count));
-  }, [count, dispatch]);
 
   return (
     <Box m="2">
@@ -90,7 +81,7 @@ const Hompage = () => {
         </Button>
       </Box>
 
-      <Cryptocurrencies simplified setCount={setCount} />
+      <Cryptocurrencies simplified />
 
       <Box display="flex" justifyContent="space-between" margin="2.5">
         <Heading fontSize="sm" fontFamily="sans-serif">

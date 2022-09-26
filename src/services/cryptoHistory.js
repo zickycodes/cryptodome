@@ -1,37 +1,39 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const fetchCryptoDetail = createAsyncThunk(
-  "cryptoDetails/fetchcryptodetails",
-  async (uuid, time) => {
+const fetchCryptoHistory = createAsyncThunk(
+  "cryptohistory/fetchcryptohistory",
+  async ({ coinId, timeStamp }) => {
+    console.log(coinId, timeStamp);
+    // console.log(time);
     const options = {
       method: "GET",
-      url: "https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/history",
+      url: `https://coinranking1.p.rapidapi.com/coin/${coinId}/history`,
       params: {
-        referenceCurrencyUuid: `${uuid}`,
-        timePeriod: `${time}`,
+        // referenceCurrencyUuid: `${coinId}`,
+        timePeriod: `${timeStamp}`,
       },
       headers: {
-        "X-RapidAPI-Key": "65ce34489dmsh08e013df88b1120p17f019jsn7c8e9363e075",
+        "X-RapidAPI-Key": process.env.REACT_APP_CRYPTODETAIL_KEY,
         "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
       },
     };
-    console.log(uuid);
-    console.log(time);
+
+    // console.log(time);
     const response = await axios.request(options);
-    console.log(response);
+    return response.data.data;
   }
 );
 
 const cryptoHistorySlice = createSlice({
-  name: "cryptoDetails",
-  initialState: { loading: true },
+  name: "cryptohistory",
+  initialState: { loadingHistory: true },
   extraReducers: (builder) => {
-    builder.addCase(fetchCryptoDetail.fulfilled, (state, action) => {
+    builder.addCase(fetchCryptoHistory.fulfilled, (state, action) => {
       console.log(action);
-      return { ...action.payload, loading: false };
+      return { ...action.payload, loadingHistory: false };
     });
   },
 });
 
 export default cryptoHistorySlice.reducer;
-export { fetchCryptoDetail };
+export { fetchCryptoHistory };

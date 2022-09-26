@@ -1,14 +1,36 @@
-import React from "react";
-import { SimpleGrid, Text, Link, Box, Image } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import {
+  SimpleGrid,
+  Text,
+  Link,
+  // Box,
+  Image,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+
+  // StatGroup,
+} from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { Link as ReachLink } from "react-router-dom";
-
 import millify from "millify";
+import { fetchCrypto } from "../services/cryptoApi";
+import { useDispatch } from "react-redux";
 
-export const Cryptocurrencies = ({ simplified, setCount }) => {
+export const Cryptocurrencies = ({ simplified }) => {
+  const count = simplified ? 10 : 50;
+
   const { coins, loading } = useSelector((state) => {
     return state.crypto;
   });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCrypto(count));
+  }, [count, dispatch]);
 
   //  {/* <SimpleGrid
   //       columns={[1, 2, 4]}
@@ -45,6 +67,15 @@ export const Cryptocurrencies = ({ simplified, setCount }) => {
   //         })}
   //     </SimpleGrid> */
 
+  //   <Stat>
+  //   <StatLabel>Clicked</StatLabel>
+  //   <StatNumber>45</StatNumber>
+  //   <StatHelpText>
+  //     <StatArrow type='decrease' />
+  //     9.05%
+  //   </StatHelpText>
+  // </Stat>
+
   const currencies = coins?.map((coin) => {
     return (
       <Link
@@ -53,19 +84,22 @@ export const Cryptocurrencies = ({ simplified, setCount }) => {
         to={`cryptocurrencies/${coin.uuid}`}
         _hover={{ textDecoration: "none", bg: "darkgrey" }}
       >
-        <Box boxShadow="md" rounded="md" p="4" bg="white">
-          const count = simplified ? setCount(10) : setCount(50);{" "}
+        <Stat boxShadow="md" rounded="md" p="4" bg="white">
           <Image
             borderRadius="md"
             src={coin.iconUrl}
             width="10%"
             _hover={{ bg: "rgba(255, 255, 255, 0.868);" }}
           />
-          <Text>Coin Name:{coin.name}</Text>
+          <StatLabel>Coin Name:{coin.name}</StatLabel>
           <Text>Coin Rank:{coin.rank}</Text>
-          <Text>Coin Price:{millify(coin.price)}</Text>
-          <Text> 24hour Change:{coin.change}%</Text>
-        </Box>
+          <StatNumber>Coin Price:${millify(coin.price)}</StatNumber>
+          <StatHelpText>
+            <StatArrow type={coin.change > 0 ? "increase" : "decrease"} />
+            {`24 hour change: ${coin.change}`}
+          </StatHelpText>
+          {/* <Text> 24hour Change:{coin.change}%</Text> */}
+        </Stat>
       </Link>
     );
   });

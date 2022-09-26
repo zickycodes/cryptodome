@@ -6,12 +6,12 @@ const Footer = () => {
   return (
     <Box boxShadow="md" p="2" m="2">
       <Text>
-        Copyright © 2021
+        Copyright © 2022
         <Link to="/" as={ReachLink}>
           Cryptodome Inc.
         </Link>{" "}
         <br />
-        All Rights Reserved.
+        All Rights Reserved. Built by Zicky
       </Text>
 
       <Box display="flex" justifyContent="space-around">
