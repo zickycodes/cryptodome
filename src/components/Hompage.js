@@ -9,6 +9,7 @@ import {
   Icon,
   Heading,
   Avatar,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Link as ReachLink } from "react-router-dom";
 import millify from "millify";
@@ -28,6 +29,7 @@ const Hompage = () => {
   const { newsItems, loadingNews } = useSelector((state) => {
     return state.news;
   });
+  const BG = useColorModeValue("white", "gray.600");
 
   return (
     <Box m="2">
@@ -35,22 +37,22 @@ const Hompage = () => {
         {!loading && (
           <>
             {" "}
-            <Box boxShadow="md" rounded="md" p="4" bg="white">
+            <Box boxShadow="md" rounded="md" p="4" bg={BG}>
               <Icon as={MdOutlineVolunteerActivism} />
               <Text fontSize="lg">Total 24h Volume</Text>
               <Text>{millify(stats.total24hVolume)}</Text>
             </Box>
-            <Box rounded="md" p="4" boxShadow={"base"}>
+            <Box rounded="md" p="4" boxShadow={"base"} bg={BG}>
               <Icon as={MdDoNotDisturbOnTotalSilence} />
               <Text fontSize="lg">Total Exchanges</Text>
               <Text>{millify(stats.totalExchanges)}</Text>
             </Box>
-            <Box rounded="md" p="4" boxShadow={"base"}>
+            <Box rounded="md" p="4" boxShadow={"base"} bg={BG}>
               <Icon as={SiMarketo} />
               <Text fontSize="lg">Total Markets</Text>
               <Text>{millify(stats.totalMarkets)}</Text>
             </Box>
-            <Box rounded="md" p="4" boxShadow={"base"}>
+            <Box rounded="md" p="4" boxShadow={"base"} bg={BG}>
               <Icon as={GiApolloCapsule} />
               <Text fontSize="lg">Total Market Cap</Text>
               <Text>{millify(stats.totalMarketCap)}</Text>

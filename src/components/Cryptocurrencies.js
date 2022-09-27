@@ -10,6 +10,7 @@ import {
   StatNumber,
   StatHelpText,
   StatArrow,
+  useColorModeValue,
 
   // StatGroup,
 } from "@chakra-ui/react";
@@ -20,6 +21,7 @@ import { fetchCrypto } from "../services/cryptoApi";
 import { useDispatch } from "react-redux";
 
 export const Cryptocurrencies = ({ simplified }) => {
+  const BG = useColorModeValue("white", "gray.600");
   const count = simplified ? 10 : 50;
 
   const { coins, loading } = useSelector((state) => {
@@ -81,10 +83,10 @@ export const Cryptocurrencies = ({ simplified }) => {
       <Link
         key={coin.uuid}
         as={ReachLink}
-        to={`cryptocurrencies/${coin.uuid}`}
+        to={`/cryptocurrencies/${coin.uuid}`}
         _hover={{ textDecoration: "none", bg: "darkgrey" }}
       >
-        <Stat boxShadow="md" rounded="md" p="4" bg="white">
+        <Stat boxShadow="md" rounded="md" p="4" bg={BG}>
           <Image
             borderRadius="md"
             src={coin.iconUrl}
